@@ -20,27 +20,30 @@
   <dd>
     2 months ago
   </dd>
-
+  <% current_user_photos = Photo.where({ :id => @photo.id, :id => session.fetch(:user_id) }) %>
+  <% if current_user_photos.count != 0 %>
   <dt>Edit photo</dt>
   <dd>
-    <form action="/update_photo/<%= @photo.id %>">
+    <form action="/update_photo/<%= @photo.id %>" >
       <label for="browser_image">Image</label>
-      <input id="browser_image" type="text" name="input_image" placeholder="Enter a URL for the image..." value="<%= @photo.image %>">
+      <input id="browser_image" type ="text" name ="input_image" placeholder="Enter a URL for the image..." value="<%= @photo.image %>">
 
       <label for="browser_caption">Caption</label>
-      <textarea id="browser_caption" name="input_caption" placeholder="Enter a caption for the photo..."><%= @photo.caption %></textarea>
+      <textarea id="browser_caption"  name="input_caption" placeholder="Enter a caption for the photo..." value="<%= @photo.caption %>"></textarea>
 
       <button>Update photo</button>
     </form>
+    
   </dd>
-
+    <% else %>
   <dt>Delete photo</dt>
+  <% end %>
   <dd>
     <a href="/delete_photo/<%= @photo.id %>;">
       Delete this photo
     </a>
   </dd>
-</dl>
+</dl-->
 
 <h2>Comments</h2>
 
@@ -72,11 +75,11 @@
 <h3>Add a new comment</h3>
 
 <form action="/insert_comment_record" method="post">
-  <label for="browser_photo_id">Photo ID</label>
-  <input id="browser_photo_id" type="text" value="<%= @photo.id %>" name="input_photo_id">
+  <!--label for="browser_photo_id">Photo ID</label-->
+  <input id="browser_photo_id" type="hidden" value="<%= @photo.id %>" name="input_photo_id">
 
-  <label for="browser_author_id">Author ID</label>
-  <input id="browser_author_id" type="text" name="input_author_id">
+  <!--label for="browser_author_id">Author ID</label>
+  <input id="browser_author_id" type="text" name="input_author_id"-->
 
   <label for="browser_comment">Comment</label>
   <textarea id="browser_comment" name="input_body" placeholder="Enter a comment..."></textarea>
